@@ -1,4 +1,5 @@
 class Dusty < Formula
+  desc "A local development environment manager for your Mac"
   homepage "https://github.com/gamechanger/dusty"
   head "https://github.com/gamechanger/dusty.git"
 
@@ -102,5 +103,11 @@ class Dusty < Formula
 
     bin.install Dir[libexec/"bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+  end
+
+  test do
+    Language::Python.each_python(build) do |python, _version|
+      system python, "-c", "import dusty"
+    end
   end
 end
